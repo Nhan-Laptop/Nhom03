@@ -14,6 +14,17 @@
 > Các log thực thi thô, prompt gửi cho AI agent và telemetry của agent đều được lưu trong repo kèm **mã băm SHA-256**
 > để đối chiếu ([mục 6](#6-bằng-chứng-kiểm-chứng-và-khả-năng-tái-lập)).
 
+### Tóm tắt kết quả
+
+| Hạng mục | Kết quả |
+|---|---|
+| B.1 — Git | 7 commit: staging → commit → sửa tập tin → nhánh `feature` (fast-forward) → **xử lý xung đột** (merge commit có 2 cha) → push lên GitHub |
+| B.2.1 — làm thủ công (nhánh `manual`) | 3 commit: threat model (Yêu cầu 3) → **sửa bug `ret_val`** (Yêu cầu 4) → RBAC theo `policy.py` (Yêu cầu 5) ⇒ **11 test OK** |
+| B.2.2 — giao cho AI agent (nhánh `agent`) | 3 commit, agent chạy trong sandbox **không được tự commit**; 2 vòng (1 lần bị review chặn merge) ⇒ **24 test OK** |
+| Phát hiện đáng chú ý | Agent tự đổi **hợp đồng trả về** của hàm và viết test theo đúng cái sai ⇒ 22/22 test xanh nhưng vẫn sai đặc tả; **chỉ con người review mới bắt được** |
+| Bằng chứng | 30 hình minh họa (27 hình sinh từ log + 3 ảnh chụp GitHub thật), log thô + prompt/telemetry của agent + mã băm SHA-256 trong [`docs/evidence/`](docs/evidence) |
+| Bản để nộp | [`docs/report/[NT521]-Lab1_...-Hoang.pdf`](docs/report) — 38 trang A4, kèm toàn bộ hình minh họa |
+
 ---
 
 ## Mục lục
@@ -564,7 +575,8 @@ Nhom03/                     <- repo root (B.1: master; B.2: + manual, agent)
     │   ├── prompt.txt
     │   ├── events.jsonl           (vòng 1)
     │   └── events-round2.jsonl    (vòng 2)
-    └── img/                   <- 27 ảnh minh họa (mỗi ảnh ghi rõ nguồn dòng)
+    ├── report/                <- bản PDF để nộp + script sinh PDF
+    └── img/                   <- 30 ảnh minh họa (mỗi ảnh ghi rõ nguồn dòng)
 ```
 
 ```bash
@@ -666,6 +678,19 @@ git show --stat b0001f5 | tail -4     # 2 file: recursive_json_search.py, test_j
 2. **Model của agent đổi giữa hai vòng** (`deepseek-v4-flash-vision-exp` → `qwen3.8-flash` do provider failover). Hệ quả: “vòng 2” không hoàn toàn cùng một model với “vòng 1” — điều này đã được tính vào tiêu chí *khả năng tái lập* ở bảng đối sánh.
 3. **Ảnh minh họa là ảnh dựng lại từ log**, không phải ảnh chụp màn hình terminal gốc. Nội dung là nguyên văn log; riêng trang GitHub (mục 7) là **ảnh chụp thật**.
 4. **Thời gian “thủ công” (2′31″)** là thời gian thực thi các lệnh đã chuẩn bị, không bao gồm thời gian đọc đề, phân tích và thiết kế threat model.
+
+### 6.5 Bản PDF để nộp (sinh tự động từ chính README này)
+
+```bash
+python3 docs/report/make_pdf.py      # README.MD -> HTML -> PDF (chromium headless, A4)
+```
+
+Script [`docs/report/make_pdf.py`](docs/report/make_pdf.py) đọc `README.MD`, đổi đường dẫn ảnh sang đường dẫn tuyệt đối,
+áp CSS in A4 (tránh ngắt trang giữa bảng/ảnh) rồi in PDF bằng `chromium --headless --print-to-pdf`.
+Kết quả: **[`docs/report/[NT521]-Lab1_24521236-Nhan_24520023-Nhan_24520546-Hoang.pdf`](docs/report)** — 38 trang A4, 3,6 MB.
+
+> **Đổi tên khi nộp:** theo mẫu của đề, đổi tên file thành `[Mã lớp]-Lab1_MSSV1-TênSV1_MSSV2-TênSV2...pdf`
+> (ví dụ `[NT521.N11.1]-Lab1_24521236-Nhan_24520023-Nhan_24520546-Hoang.pdf`).
 
 ---
 
