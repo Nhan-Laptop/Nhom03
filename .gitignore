@@ -4,6 +4,10 @@
 # Lab documents -- KHONG duoc dang tai len internet
 *.pdf
 
+# Python
+__pycache__/
+*.pyc
+
 # OS / editor noise
 .DS_Store
 Thumbs.db
