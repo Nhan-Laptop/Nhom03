@@ -1,0 +1,11 @@
+# Pi agent session data (local only)
+.pi/
+
+# Lab documents -- KHONG duoc dang tai len internet
+*.pdf
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
