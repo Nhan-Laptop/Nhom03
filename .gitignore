@@ -1,8 +1,9 @@
 # Pi agent session data (local only)
 .pi/
 
-# Lab documents -- KHONG duoc dang tai len internet
-*.pdf
+# Tai lieu lab (chi luu hanh noi bo) - CHI chan PDF o thu muc goc repo,
+# khong chan bao cao PDF do nhom tu sinh trong docs/report/
+/*.pdf
 
 # Python
 __pycache__/

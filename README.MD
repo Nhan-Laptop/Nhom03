@@ -575,7 +575,9 @@ Nhom03/                     <- repo root (B.1: master; B.2: + manual, agent)
     │   ├── prompt.txt
     │   ├── events.jsonl           (vòng 1)
     │   └── events-round2.jsonl    (vòng 2)
-    ├── report/                <- bản PDF để nộp + script sinh PDF
+    ├── report/                <- bản để nộp
+    │   ├── make_pdf.py                    <- script sinh PDF từ README (tái lập được)
+    │   └── [NT521]-Lab1_...-Hoang.pdf     <- báo cáo 38 trang A4
     └── img/                   <- 30 ảnh minh họa (mỗi ảnh ghi rõ nguồn dòng)
 ```
 
@@ -608,8 +610,8 @@ cd ../.. && python3 docs/evidence/make_images.py
 ## 5. Ghi chú khi công khai repository
 
 - `test_data.py` chứa `apiKey = "SNMP-COMMUNITY-STRING-7f3a9c"` và các địa chỉ IP `10.10.x.x` — đây **là dữ liệu mẫu giả định** đi kèm bộ tài nguyên của bài lab, không phải credential hay hạ tầng thật.
-- File tài liệu lab (`*.pdf`) được loại trừ bằng `.gitignore` vì tài liệu chỉ lưu hành nội bộ; repo chỉ chứa sản phẩm thực hành của nhóm.
 - `README.MD` công khai họ tên và MSSV của các thành viên theo đúng yêu cầu định danh bài nộp; nếu muốn giới hạn, nhóm có thể chuyển repo sang **PRIVATE**.
+- File tài liệu lab (`.pdf` **ở thư mục gốc**) bị loại trừ bằng `.gitignore` vì tài liệu chỉ lưu hành nội bộ; còn **báo cáo PDF do nhóm tự sinh** trong `docs/report/` thì được đưa vào repo (`.gitignore` dùng luật `/*.pdf` thay vì `*.pdf`).
 
 ---
 
