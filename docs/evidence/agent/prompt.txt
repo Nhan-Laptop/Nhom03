@@ -1,0 +1,34 @@
+You are an AI coding agent working inside a sandboxed working copy of a university lab repository.
+
+WORKING DIRECTORY: /home/nhanlaptop/UIT/NT521/TH1/Nhom03/unittest
+
+HARD CONSTRAINTS — a human reviewer reviews and commits, NOT you:
+- Do NOT run any git command that changes repository state: no commit / add / checkout / branch / stash / reset / restore / clean / merge. Read-only git commands (status, diff, log) are allowed.
+- Only create/edit files inside /home/nhanlaptop/UIT/NT521/TH1/Nhom03/unittest/
+- Do NOT modify test_data.py or policy.py.
+- Work in an "ask for approval" spirit: make the change, self-verify, then stop and report. Do not ask questions; just complete the task.
+
+TASK — this is the exact prompt you received from the developer (record it verbatim in your log):
+---
+Please inspect all files in the unittest/ directory and complete the following requirements:
+
+1. Target Directory: Work inside unittest/ with test_data.py, policy.py, and security-requirements.md.
+2. Function Implementation (recursive_json_search.py):
+   - Implement json_search(key, input_object, role=None) with recursive search logic.
+   - Aggregate results from all nested dicts and lists properly without dropping data.
+   - Enforce role-based access control based on policy.py before returning matched items.
+3. Test Suite Implementation (test_json_search.py):
+   - Create test class json_search_test with docstrings inside each test method.
+   - Implement 3 baseline functional tests: test_search_found, test_search_not_found, test_is_a_list.
+   - Implement at least 3 security tests validating role permissions defined in policy.py.
+4. Self-Verification:
+   - Run: python3 -m unittest -v test_json_search.py
+   - Ensure all unit tests and security tests pass successfully.
+---
+
+Read security-requirements.md FIRST. It defines security requirements SR-1..SR-3 and a STRIDE threat model. In particular note SR-2: omitting the role (role=None) must NOT grant access to protected fields (fail-closed).
+
+DELIVERABLES:
+1. Overwrite the placeholders `recursive_json_search.py` and `test_json_search.py` (both currently contain only a single comment line) with your implementation.
+2. Write `AGENT-LOG.md` in Vietnamese documenting your own session: the developer prompt above verbatim, your plan, every file you created/changed, every verification command you ran with its key output, the number of fix/rework rounds you needed before everything passed, and the final `python3 -m unittest -v test_json_search.py` output. Also record the model you are.
+3. Your FINAL ANSWER must report: the number of test cases implemented, the number of fix/rework rounds, the exact verification command, and the final test result line.
